@@ -22,6 +22,10 @@ Answer ~40 yes/no questions. Get:
 
 ## Demo
 
+![AutoCompliance demo](demo/demo.gif)
+
+*Watch it work: answer questions, get your grade, fix list, and documents.*
+
 ![Sample compliance report](demo/report-preview.png)
 
 *Sample report: a company scores 67% (Grade C) with prioritized fixes.*
