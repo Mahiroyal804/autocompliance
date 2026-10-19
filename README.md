@@ -1,5 +1,9 @@
 # 🛡️ AutoCompliance
 
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Dependencies: zero](https://img.shields.io/badge/dependencies-zero-brightgreen.svg)]()
+
 **GDPR + SOC 2 compliance autopilot for small businesses.**
 
 Compliance consultants charge $5,000–$50,000. AutoCompliance does the first 80% free, in 10 minutes:
