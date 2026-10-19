@@ -6,13 +6,32 @@ import json
 import os
 import time
 
-from .knowledge import CONTROLS
-
 ANSWERS = {"y": 1.0, "n": 0.0, "p": 0.5}  # yes / no / partial
 
 
+def load_controls() -> list:
+    """Load controls from questions.json (ships with the package).
+
+    Falls back to the built-in knowledge base if the data file is missing.
+    Note: we use JSON (stdlib) instead of YAML so the package stays
+    dependency-free — no PyYAML needed.
+    """
+    here = os.path.dirname(os.path.abspath(__file__))
+    qpath = os.path.join(here, "questions.json")
+    try:
+        with open(qpath, encoding="utf-8") as f:
+            data = json.load(f)
+        controls = data.get("controls")
+        if controls:
+            return controls
+    except (OSError, ValueError):
+        pass
+    from .knowledge import CONTROLS
+    return CONTROLS
+
+
 def all_questions(frameworks=("GDPR", "SOC 2")):
-    for c in CONTROLS:
+    for c in load_controls():
         if c["framework"] in frameworks:
             for qi, q in enumerate(c["questions"]):
                 yield c, qi, q
@@ -20,12 +39,13 @@ def all_questions(frameworks=("GDPR", "SOC 2")):
 
 def score_answers(answers: dict, frameworks=("GDPR", "SOC 2")) -> dict:
     """answers: {(control_id, q_index): 'y'|'n'|'p'} -> scored result."""
+    controls = load_controls()
     controls_out = []
     total_w = 0
     earned_w = 0
     fw_scores: dict[str, list] = {}
 
-    for c in CONTROLS:
+    for c in controls:
         if c["framework"] not in frameworks:
             continue
         cw = sum(q["weight"] for q in c["questions"])

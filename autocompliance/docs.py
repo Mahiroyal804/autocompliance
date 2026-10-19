@@ -351,6 +351,66 @@ _{disclaimer}_
 [ ] Proceed [ ] Proceed with mitigations [ ] Do not proceed
 """,
     },
+    "soc2_checklist": {
+        "title": "SOC 2 Readiness Checklist",
+        "filename": "soc2-checklist.md",
+        "body": """# SOC 2 Readiness Checklist — {company}
+
+_{disclaimer}_
+
+Work through each Trust Services Criterion. Mark: [x] done, [~] partial, [ ] not started.
+
+## CC1 — Control Environment
+- [ ] Security policies published and acknowledged by all staff
+- [ ] Organizational chart with clear security responsibilities
+- [ ] Background checks for staff with data access
+
+## CC2 — Communication & Information
+- [ ] Security responsibilities communicated at onboarding
+- [ ] Anonymous channel for reporting security concerns
+
+## CC3 — Risk Assessment
+- [ ] Annual documented risk assessment completed
+- [ ] Risks tracked to closure with named owners
+
+## CC4 — Monitoring
+- [ ] Control performance monitored; deficiencies remediated timely
+
+## CC5 — Control Activities
+- [ ] Policies support control objectives and are enforced
+
+## CC6 — Logical & Physical Access
+- [ ] Joiner/mover/leaver process documented and followed
+- [ ] MFA enforced for all staff accounts
+- [ ] Least-privilege access; quarterly access reviews
+- [ ] Unique credentials; no shared admin accounts
+
+## CC7 — System Operations
+- [ ] Changes tested and approved before production
+- [ ] Security monitoring with alerting and on-call response
+- [ ] Incident response plan documented and drill-tested
+
+## CC8 — Change Management
+- [ ] All production changes logged, tested, approved
+- [ ] Emergency change procedure defined
+
+## A1 — Availability
+- [ ] Automated daily backups; restore tested in last 6 months
+- [ ] Backups encrypted, stored separately from production
+- [ ] Uptime monitored with alerting
+
+## C1 — Confidentiality
+- [ ] Data classification defined; confidential data encrypted
+- [ ] NDAs with staff and vendors handling sensitive data
+
+## P1–P8 — Privacy (if in scope)
+- [ ] Privacy notice published and current
+- [ ] Consent / lawful basis documented per purpose
+- [ ] DSR process operational (30-day response)
+
+_Complete all boxes before engaging an auditor — this checklist covers the first 80%._
+""",
+    },
 }
 
 
@@ -365,7 +425,8 @@ def render_doc(key: str, company: str, email: str) -> tuple[str, str]:
     return d["filename"], content
 
 
-def generate_all(company: str, email: str, out_dir: str, only: list[str] | None = None) -> list[str]:
+def generate_all(company: str, email: str, out_dir: str, only: list[str] | None = None,
+                 pdf: bool = False) -> list[str]:
     os.makedirs(out_dir, exist_ok=True)
     paths = []
     for key in (only or list(DOCS.keys())):
@@ -374,4 +435,9 @@ def generate_all(company: str, email: str, out_dir: str, only: list[str] | None 
         with open(p, "w") as f:
             f.write(content)
         paths.append(p)
+        if pdf:
+            from .pdf import markdown_to_pdf
+            pp = os.path.splitext(p)[0] + ".pdf"
+            markdown_to_pdf(content, pp, title=f"{DOCS[key]['title']} — {company}")
+            paths.append(pp)
     return paths
