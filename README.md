@@ -20,6 +20,12 @@ Answer ~40 yes/no questions. Get:
 - 📄 **14 document templates** — privacy policy, DPA, RoPA, incident response plan, security policy, DSR playbook, vendor register, retention schedule, and more
 - 🖼️ **Client-ready HTML report** — show customers and auditors where you stand
 
+## Demo
+
+![Sample compliance report](demo/report-preview.png)
+
+*Sample report: a company scores 67% (Grade C) with prioritized fixes.*
+
 ## Why
 
 - **GDPR fines** reach €20M or 4% of global turnover. Most SMBs have no idea where they stand.
