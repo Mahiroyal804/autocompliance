@@ -1,0 +1,15 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "autocompliance"
+version = "0.1.0"
+description = "Open-source GDPR + SOC 2 compliance autopilot for small businesses."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["gdpr", "soc2", "compliance", "privacy", "security"]
+
+[project.scripts]
+autocompliance = "autocompliance.cli:main"
