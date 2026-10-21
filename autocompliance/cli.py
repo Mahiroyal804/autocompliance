@@ -10,7 +10,7 @@ import argparse
 import os
 import sys
 
-DEFAULT_EMAIL = "mashood0109@gmail.com"
+DEFAULT_EMAIL = "privacy@example.com"
 DEFAULT_OUT = "./compliance-report"
 
 
