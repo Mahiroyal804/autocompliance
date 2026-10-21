@@ -7,7 +7,7 @@ from autocompliance.cli import DEFAULT_EMAIL, build_parser
 
 class TestCli(unittest.TestCase):
     def test_default_email(self):
-        self.assertEqual(DEFAULT_EMAIL, "mashood0109@gmail.com")
+        self.assertEqual(DEFAULT_EMAIL, "privacy@example.com")
 
     def test_assess_defaults(self):
         args = build_parser().parse_args(["assess", "--company", "Acme"])
